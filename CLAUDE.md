@@ -12,7 +12,11 @@
 - Use subagents liberally to keep main context window clean
 - Offload research, exploration, and parallel analysis to subagents
 - For complex problems, throw more compute at it via subagents
-- One task per subagent for focused execution
+- One task per subagent; run independent tasks in parallel
+- Route to custom subagents without being asked:
+  - `deep-reasoner` — architecture, complex debugging, algorithm design, tradeoff analysis
+  - `fast-worker` — boilerplate, tests, formatting, simple or repetitive edits
+- Keep orchestration in main context: integrate results, verify, make final decisions
 
 ### 3. Self-Improvement Loop
 - After ANY correction from the user: update `tasks/lessons.md` with the pattern
