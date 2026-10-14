@@ -1,27 +1,28 @@
 # AGENTS.md
 
-Project-specific instructions for AI agents. Fill in the sections below for your project; remove any that don't apply. Until filled in, this file is a neutral template and safe to copy anywhere.
+<!--
+Project-specific instructions for AI agents: what the project is, not how to work.
+Fill in the sections below; remove any that don't apply.
+Keep entries short and factual. Anything an agent could derive from the code
+or git history doesn't belong here.
+-->
 
-## Project Overview
+## What this project is
 
-<!-- What this project is, its purpose, and main tech stack. -->
-
-## Repository Structure
-
-<!-- Key directories and what lives where. -->
+<!-- Purpose, main tech stack, key directories and what lives where. -->
 
 ## Commands
 
-<!-- How to build, test, lint, and run the project, e.g.:
+<!-- How to build, test, lint, and run, e.g.:
 - Build: `npm run build`
-- Test: `npm test`
-- Lint: `npm run lint`
+- Test:  `npm test`
+- Lint:  `npm run lint`
 -->
 
 ## Conventions
 
 <!-- Code style, naming, commit message format, branching rules. -->
 
-## Domain Notes
+## Gotchas
 
-<!-- Business logic, terminology, gotchas an agent must know. -->
+<!-- Domain terminology, business rules, non-obvious traps an agent must know. -->
