@@ -1,65 +1,31 @@
 # CLAUDE.md
 
-Project-specific instructions: @AGENTS.md
+@AGENTS.md
 
-## Workflow Orchestration
+## Planning
 
-### 1. Plan Mode Default
-- Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
+- Enter plan mode for architectural decisions or ambiguous asks; for other multi-step work, write a short plan and proceed
+- Every plan ends with how the result will be verified
 - If something goes sideways, STOP and re-plan immediately
-- Use plan mode for verification steps, not just building
-- Write detailed specs upfront to reduce ambiguity
 
-### 2. Subagent Strategy
-- Use subagents liberally to keep main context window clean
-- Offload research, exploration, and parallel analysis to subagents
-- For complex problems, throw more compute at it via subagents
+## Subagents
+
+- Offload research, exploration, and analysis to subagents liberally to keep main context clean
 - One task per subagent; run independent tasks in parallel
 - Route to custom subagents without being asked:
-  - `deep-reasoner` — architecture, complex debugging, algorithm design, tradeoff analysis
-  - `fast-worker` — boilerplate, tests, formatting, simple or repetitive edits
+  - `deep-reasoner`: architecture, complex debugging, algorithm design, tradeoff analysis
+  - `fast-worker`: boilerplate, tests, formatting, simple or repetitive edits
 - Keep orchestration in main context: integrate results, verify, make final decisions
 
-### 3. Self-Improvement Loop
-- After ANY correction from the user: update `tasks/lessons.md` with the pattern
-- Write rules for yourself that prevent the same mistake
-- Ruthlessly iterate on these lessons until mistake rate drops
-- Review lessons at session start for relevant project
+## Verification
 
-### 4. Verification Before Done
-- Never mark a task complete without proving it works
+- Show evidence before calling work done: run tests, check logs, demonstrate correctness
 - Diff behavior between main and your changes when relevant
-- Ask yourself: **"Would a staff engineer approve this?"**
-- Run tests, check logs, demonstrate correctness
+- The Stop hook runs `.claude/hooks/verify.sh`; make it pass, never bypass it
 
-### 5. Demand Elegance (Balanced)
-- For non-trivial changes: pause and ask **"is there a more elegant way?"**
-- If a fix feels hacky:  
-  **"Knowing everything I know now, implement the elegant solution"**
-- Skip this for simple, obvious fixes — don’t over-engineer
-- Challenge your own work before presenting it
+## Quality
 
-### 6. Autonomous Bug Fixing
-- When given a bug report: just fix it. Don't ask for hand-holding
-- Point at logs, errors, failing tests — then resolve them
-- Zero context switching required from the user
-- Go fix failing CI tests without being told how
-
----
-
-## Task Management
-
-1. **Plan First**: Write plan to `tasks/todo.md` with checkable items
-2. **Verify Plan**: Check in before starting implementation
-3. **Track Progress**: Mark items complete as you go
-4. **Explain Changes**: High-level summary at each step
-5. **Document Results**: Add review section to `tasks/todo.md`
-6. **Capture Lessons**: Update `tasks/lessons.md` after corrections
-
----
-
-## Core Principles
-
-- **Simplicity First**: Make every change as simple as possible. Impact minimal code.
-- **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
-- **Minimal Impact**: Changes should only touch what’s necessary. Avoid introducing bugs.
+- Fix root causes, not symptoms, and touch nothing beyond that fix
+- When merging or refactoring, rewrite for the result rather than stitching parts together
+- For non-trivial changes ask "is there a more elegant way?"; if yes, redo it with what you now know. Don't over-engineer simple fixes
+- Comments: one line, only for what code can't say; prefer clearer code over a new comment. Deeper context goes in the file header
